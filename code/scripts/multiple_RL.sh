@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="/home/jameshko/Documents/birlnn_latest/BIMODAL"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$REPO"
 
 # Python executable (can override with environment variable)
 PYTHON="${PYTHON:-python3}"
-SCRIPT="model/main_fine_tuner.py"
+SCRIPT="code/model/main_fine_tuner.py"
 
 # Default experiments (space-separated array). Change or override via EXPERIMENTS env var (comma-separated).
 experiments=("FBRNN_SELFIES_fixed_1024")

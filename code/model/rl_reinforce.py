@@ -301,7 +301,7 @@ class RLFineTuner:
 
 
 class PPOFineTuner:
-    """PPO-style fine-tuner with KL and entropy constraints and optional diversity rewards.
+    """PPO-style fine-tuner with KL and entropy constraints and optional diversity rewards (UNDER DEVELOPMENT).
 
     Design: model-agnostic via callables.
     Required:

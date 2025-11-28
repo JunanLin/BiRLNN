@@ -9,7 +9,6 @@ import configparser
 from fb_rnn import FBRNN
 from forward_rnn import ForwardRNN
 from backward_rnn import BackwardRNN
-from nade import NADE
 from bimodal import BIMODAL
 from one_hot_encoder import SMILESEncoder, SELFIESEncoder
 from sklearn.utils import shuffle

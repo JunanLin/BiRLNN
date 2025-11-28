@@ -12,7 +12,7 @@ import os
 
 # Make model/ importable
 BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(1, os.path.join(BASE_PATH, 'model'))
+sys.path.insert(1, os.path.join(BASE_PATH, 'code', 'model'))
 from helper import clean_molecule, check_valid
 
 matplotlib.use('TkAgg')

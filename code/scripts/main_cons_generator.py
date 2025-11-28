@@ -2,10 +2,13 @@ import sys
 import os
 import time
 import re
+# Constrained generation script for multiple models
+# To modify constraints, change the default strings in seeds.py
 
-repo = '/home/jameshko/Documents/birlnn_latest/BIMODAL'
+# Resolve project root dynamically
+repo = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 # Ensure model package imports find local modules
-sys.path.insert(0, os.path.join(repo, 'model'))
+sys.path.insert(0, os.path.join(repo, 'code', 'model'))
 from sample import Sampler
 from seeds import seeds_for_model
 

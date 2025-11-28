@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import argparse
 import json
 
-repo = '/home/jameshko/Documents/birlnn_latest/BIMODAL'
-sys.path.insert(0, os.path.join(repo, 'model'))
+# Resolve project root dynamically (two levels up from this file)
+repo = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+# Ensure local model package is importable
+sys.path.insert(0, os.path.join(repo, 'code', 'model'))
 
 from sample import Sampler
 from rl_reinforce import PPOFineTuner, RLFineTuner, make_reward_fn_list
@@ -646,7 +648,7 @@ def run_experiment(args, reward_weights, seed, seed_name):
 					# Plot distributions and save top molecule images
 					plot_qed_vs_sas(run_dir, episode_list, output_name='distribution')
 					
-				# Optional retrosynthesis analysis via AiZynthFinder
+				# Optional retrosynthesis analysis via AiZynthFinder (UNDER DEVELOPMENT)
 				if args.aizynth_config:
 					try:
 						limit = None if (not args.aizynth_limit or args.aizynth_limit <= 0) else int(args.aizynth_limit)

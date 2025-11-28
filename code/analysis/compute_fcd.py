@@ -21,7 +21,7 @@ if REPO not in sys.path:
     sys.path.insert(0, REPO)
 
 try:
-    from fcd_torch import FCD
+    from fcd import FCD
 except Exception as e:
     print("ERROR: fcd_torch not available. Please install it in the active environment.")
     print(e)

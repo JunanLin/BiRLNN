@@ -41,7 +41,9 @@ except Exception:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--repo', default='/home/jameshko/Documents/birlnn_latest/BIMODAL', help='Path to BIMODAL repo')
+    # Default repo: project root two levels up from this file
+    default_repo = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    parser.add_argument('--repo', default=default_repo, help='Path to BIMODAL repo')
     parser.add_argument('--exp-type', choices=['SELFIES', 'SMILES'], default='SMILES', help='Type of experiments being analyzed')
     parser.add_argument('--limit', type=int, default=1000, help='Max molecules per experiment per seed (0 or negative = no limit)')
     parser.add_argument('--method', choices=['umap', 'tsne'], default='umap')
@@ -72,7 +74,7 @@ def main():
 
     # try to import QED and SAScore helpers from model/helper.py (not required but preferred)
     # try:
-    sys.path.insert(0, os.path.join(repo, 'model'))
+    sys.path.insert(0, os.path.join(repo, 'code', 'model'))
     from helper import get_qed, get_sascore
     # except Exception:
     #     # fallback implementations if helper not available

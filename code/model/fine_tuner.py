@@ -7,7 +7,6 @@ import pandas as pd
 import configparser
 from fb_rnn import FBRNN
 from forward_rnn import ForwardRNN
-from nade import NADE
 from bimodal import BIMODAL
 from one_hot_encoder import SMILESEncoder
 import os
@@ -57,12 +56,6 @@ class FineTuner():
         elif self._model_type == 'BIMODAL':
             self._model = BIMODAL(self._molecular_size, self._encoding_size,
                                   self._learning_rate, self._hidden_units)
-
-        elif self._model_type == 'NADE':
-            self._generation = self._config['MODEL']['generation']
-            self._missing_token = self._encoder.encode([self._config['TRAINING']['missing_token']])
-            self._model = NADE(self._molecular_size, self._encoding_size, self._learning_rate,
-                               self._hidden_units, self._generation, self._missing_token)
 
         data_path = os.path.join(self._base_path, 'data', self._file_name)
         self._data = self._encoder.encode_from_file(data_path)

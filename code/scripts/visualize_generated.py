@@ -254,8 +254,11 @@ def save_top_molecule_images(model_dir: str, epochs: List[int], criteria: List[s
                 print(f"[visualize] Failed to draw molecule {smiles}: {e}")
 
 if __name__ == "__main__":
+    # Example usage: compute project root and build a model_dir path under evaluation/rl
+    repo = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    example_dir = os.path.join(repo, 'evaluation', 'rl', 'FBRNN_SELFIES_fixed_1024', 'reinforce', 'weights_1_0')
     plot_qed_vs_sas(
-        model_dir="/home/jameshko/Documents/birlnn_latest/BIMODAL/evaluation/rl/FBRNN_SELFIES_fixed_1024_copy/reinforce/weights_1_0/",
+        model_dir=example_dir,
         episodes=[0, 100, 200],
         qed_threshold=0.0,
         sa_threshold=10.0,

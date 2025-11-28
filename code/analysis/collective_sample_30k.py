@@ -22,12 +22,12 @@ import pandas as pd
 import shutil
 
 REPO = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.abspath(os.path.join(REPO, '..'))
-MODEL_DIR = os.path.join(REPO, 'model')
+REPO = os.path.abspath(os.path.join(REPO, '..', '..'))
+MODEL_DIR = os.path.join(REPO, 'code', 'model')
 if MODEL_DIR not in sys.path:
     sys.path.insert(0, MODEL_DIR)
 
-from sample import Sampler
+from model.sample import Sampler
 
 
 def main():
@@ -42,20 +42,20 @@ def main():
 
     stor_dir = os.path.join(REPO, args.stor_dir)
     os.makedirs(stor_dir, exist_ok=True)
-
+    # Comment to sample selected experiments; alternatively, customize and use --experiment arg
     for i, experiment in enumerate([
-                    #    'ForwardRNN_SELFIES_1024',
-                    #    'BackwardRNN_SELFIES_1024',
-                    #    'BIMODAL_SELFIES_fixed_1024',
-                    #    'FBRNN_SELFIES_fixed_1024',
-                    #    'BIMODAL_SELFIES_random_1024',
-                    #    'FBRNN_SELFIES_random_1024',
-                    #    'ForwardRNN_1024',
-                    #    'BackwardRNN_1024',
-                    #    'BIMODAL_fixed_1024', 
+                       'ForwardRNN_SELFIES_1024',
+                       'BackwardRNN_SELFIES_1024',
+                       'BIMODAL_SELFIES_fixed_1024',
+                       'FBRNN_SELFIES_fixed_1024',
+                       'BIMODAL_SELFIES_random_1024',
+                       'FBRNN_SELFIES_random_1024',
+                       'ForwardRNN_1024',
+                       'BackwardRNN_1024',
+                       'BIMODAL_fixed_1024', 
                        'FBRNN_fixed_1024', 
-                    #    'BIMODAL_random_1024',
-                    #    'FBRNN_random_1024',
+                       'BIMODAL_random_1024',
+                       'FBRNN_random_1024',
                        ]):
         sampler = Sampler(experiment, base_path=REPO)
         print(f"\n=== Sampling experiment {i+1}: {experiment} ===")
@@ -93,8 +93,6 @@ def main():
         # Optional: clear tracked list before next experiment
         sampler.clear_output_files()
         
-
-
 
 if __name__ == '__main__':
     main()
