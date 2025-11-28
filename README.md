@@ -48,6 +48,8 @@ To activate the dedicated environment:
 conda activate birlnn
 ```
 
+Next, download the two files: data.zip and evaluation.zip from [here](https://zenodo.org/records/17574698). Unzip and place both under the same location as the code/ folder. The data/ folder contains training datasets used in the paper while evaluation/ contains all generated molecules, fine-tuned models, etc.
+
 Your code should now be ready to use!
 
 # Using the code <a name="Using_the_code"></a>
