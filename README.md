@@ -185,7 +185,7 @@ Note:
 - the losses plot can be found, in that case, in '{experiment_name}/statistic/all_statistic.png'
 - the novel, valid and unique SMILES plot can be found, in that case, in '../evaluation/{experiment_name}/molecules/novel_valid_unique_molecules.png'    
 
-## Fine-tuning vis Reinforcement Learning <a name="Finetuning"></a>
+## Fine-tuning via Reinforcement Learning <a name="Finetuning"></a>
 
 This repo now includes a simple, model-agnostic REINFORCE-based RL fine-tuner to optimize molecular properties directly from the pre-trained generators. The entry point is `model/main_fine_tuner.py`.
 
