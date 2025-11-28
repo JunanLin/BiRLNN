@@ -10,9 +10,10 @@ import matplotlib
 import sys
 import os
 
-# Make model/ importable
-BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(1, os.path.join(BASE_PATH, 'code', 'model'))
+# Ensure this model directory is importable for local helper imports
+MODEL_DIR = os.path.dirname(__file__)
+if MODEL_DIR not in sys.path:
+    sys.path.insert(0, MODEL_DIR)
 from helper import clean_molecule, check_valid
 
 matplotlib.use('TkAgg')
@@ -26,8 +27,10 @@ class Evaluator:
     def __init__(self, experiment_name, base_path=None):
         # Read parameter used during training
         self._config = configparser.ConfigParser()
-        self._base_path = base_path or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        self._config.read(os.path.join(self._base_path, 'experiments', experiment_name + '.ini'))
+        # Treat base_path as repository root. Experiments are under code/experiments; data under data/
+        self._base_path = base_path or os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+        experiments_dir = os.path.join(self._base_path, 'code', 'experiments')
+        self._config.read(os.path.join(experiments_dir, experiment_name + '.ini'))
 
         self._model_type = self._config['MODEL']['model']
         self._experiment_name = experiment_name
@@ -45,13 +48,16 @@ class Evaluator:
         self._T = float(self._config['EVALUATION']['temp'])
         self._starting_token = self._config['EVALUATION']['starting_token']
 
-        csv_path = os.path.join(self._base_path, 'data', self._file_name + '.csv')
-        tar_path = os.path.join(self._base_path, 'data', self._file_name + '.tar.xz')
+        data_dir = os.path.join(self._base_path, 'data')
+        csv_path = os.path.join(data_dir, self._file_name + '.csv')
+        tar_path = os.path.join(data_dir, self._file_name + '.tar.xz')
         if os.path.isfile(csv_path):
             self._data = pd.read_csv(csv_path, header=None).values[:, 0]
         elif os.path.isfile(tar_path):
             # Skip first line since empty and last line since nan
             self._data = pd.read_csv(tar_path, compression='xz', header=None).values[1:-1, 0]
+        else:
+            self._data = np.array([])
         # Clean data from start, end and padding token
         self._fmt = 'SELFIES' if self._file_name.upper().startswith('SELFIES') else 'SMILES'
         for i, mol_dat in enumerate(self._data):

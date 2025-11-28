@@ -19,7 +19,7 @@ PYTHON="${PYTHON:-python3}"
 "$PYTHON" code/scripts/main_trainer.py
 
 # Run evaluation
-"$PYTHON" evaluation/main_evaluator.py
+"$PYTHON" code/scripts/main_evaluator.py
 
 # Run sampling (will raise error and stop if it fails)
 "$PYTHON" code/analysis/collective_sample_30k.py

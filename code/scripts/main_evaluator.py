@@ -1,8 +1,17 @@
-from evaluation.evaluation import Evaluator
 import os
+import sys
 
-base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-stor_dir = os.path.join(base_path, 'evaluation')
+# Resolve repo root dynamically and ensure model modules are importable
+REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+MODEL_DIR = os.path.join(REPO, 'code', 'model')
+if MODEL_DIR not in sys.path:
+    sys.path.insert(0, MODEL_DIR)
+
+from evaluation import Evaluator
+
+# Use repo root as base_path. Experiments are under code/experiments and data under data/.
+base_path = REPO
+stor_dir = os.path.join(REPO, 'evaluation')
 
 for name in [
     'BIMODAL_SELFIES_fixed_1024',
