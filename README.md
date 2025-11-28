@@ -51,6 +51,19 @@ conda activate birlnn
 Your code should now be ready to use!
 
 # Using the code <a name="Using_the_code"></a>
+### Workflow runner
+
+We provide a convenience workflow script at `code/scripts/main_workflow.sh` that orchestrates the end-to-end process (training → evaluation → sampling → FCD computation → constrained generation → analysis → RL fine-tuning).
+
+- Before running the full workflow, ensure each step runs on your machine: dependencies, GPU, and paths can vary.
+- Alternatively, follow the script and run the individual commands step-by-step to validate your setup.
+
+Run the workflow from anywhere (the script determines the repo root automatically):
+
+```bash
+bash code/scripts/main_workflow.sh
+```
+
 ## Sampling from a pre-trained model <a name="Sample"></a>
 
 In this repository, we provide you with 22 pre-trained models you can use for sampling (stored in [evaluation/](evaluation/)).
