@@ -286,9 +286,11 @@ Notes:
 - torch 2.5.1 pairs with torchvision 0.20.x. If you upgrade torch, also upgrade torchvision to the matching series.
 - If you prefer conda-only installation, install torch/torchvision from the pytorch channel with a matching CUDA runtime, or use CPU-only builds consistently.
 
-## Retrosynthesis with AiZynthFinder: getting useful solvability estimates
+## Retrosynthesis with AiZynthFinder (UNDER DEVELOPMENT)
 
-We include a helper in `model/retrosynthesis_aizynth.py` that evaluates retrosynthetic solvability per episode for generated molecules. To get meaningful results:
+We include a helper in `model/retrosynthesis_aizynth.py` that evaluates retrosynthetic solvability per episode for generated molecules. THIS PART IS CURRENTLY UNDER DEVELOPMENT.
+
+To examine retrosynthesis pathways using AiZynthFinder, follow the steps:
 
 - Provide a valid AiZynthFinder config YAML with expansion policies, ringbreaker, filter policy, and a realistic stock of purchasable building blocks. Example keys in `config.yml`:
   - expansion.uspto, expansion.ringbreaker: ONNX models + template CSVs
@@ -298,6 +300,8 @@ We include a helper in `model/retrosynthesis_aizynth.py` that evaluates retrosyn
   - Selects all expansion/filter policies and the provided stock
   - Tunes search to return the first found route (saves time on positives)
   - Moderately increases the iteration budget when the default is very low
+
+Example files can be found [here](https://zenodo.org/records/17574698). Extract from the AiZynthFinder.zip file, then update the file paths in config.yml to the correct paths on your computer.
 
 You can control runtime vs. depth using the per-molecule time limit:
 
