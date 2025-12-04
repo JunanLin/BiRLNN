@@ -242,32 +242,7 @@ Notes:
 - Checkpoints are saved using the underlying model’s native `.dat` format (same as evaluation models).
 - When using PPO, checkpoints are placed under `evaluation/rl/checkpoints/<EXPERIMENT>/`.
 
-### How to read the plots
-
-1) RL trajectory (`reinforce_trajectory.pdf`)
-
-- X-axis: episode index; Y-axis: combined reward (QED − SAS/9 with weights).
-- The shaded band shows the within-batch standard deviation; a rising mean with narrowing band indicates more stable improvements.
-
-2) QED vs SAS distribution (`distribution.pdf`/`.svg`)
-
-- Main panel: scatter of sampled molecules per episode overlayed.
-- Marginal KDEs (top/right): normalized density per episode to compare shifts across runs.
-- Dashed lines: per-episode means for QED (top) and SAS (right).
-- Desired movement: up (higher QED) and left (lower SAS).
-
-3) Top-molecule SVGs (`top_molecules/epoch_{ep}_rank_{k}.svg`)
-
-- Per-episode thumbnails of the best candidates.
-- Sorted by high QED and low SAS; file name encodes episode and rank.
-- SVGs include annotations for QED and SA to quickly skim improvements.
-
-### Tips
-
-- Temperature: 0.6–0.8 is a good starting range; lower tends to exploit, higher explores.
-- Batch size: 32–64 works well on a single GPU; larger batches stabilize gradients.
-- Reward weights: `(1,0)` pushes QED only; `(1,1)` balances QED up and SAS down.
-- If you modify tokenization or start tokens, ensure `helper.clean_molecule` matches your model type.
+## Tips
 
 ### Environment tips: PyTorch vision ops and C++ ABI <a name="EnvTips"></a>
 
