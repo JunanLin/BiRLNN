@@ -18,11 +18,19 @@ The following methods are implemented:
 ## Table of Contents <!-- omit in toc -->
 
 - [Prerequisites](#prerequisites)
-- [Sampling from a pre-trained model ](#sampling-from-a-pre-trained-model-)
-- [Training a New Model](#training-a-new-model)
-- [Fine-tuning via Reinforcement Learning ](#fine-tuning-via-reinforcement-learning-)
-- [Environment tips: PyTorch vision ops and C++ ABI ](#environment-tips-pytorch-vision-ops-and-c-abi-)
-- [Retrosynthesis with AiZynthFinder (UNDER DEVELOPMENT)](#retrosynthesis-with-aizynthfinder-under-development)
+- [Using the code ](#using-the-code-)
+  - [Workflow runner](#workflow-runner)
+  - [Sampling from a pre-trained model ](#sampling-from-a-pre-trained-model-)
+  - [Training a New Model](#training-a-new-model)
+  - [Preprocessing](#preprocessing)
+  - [Training](#training)
+  - [Evaluation](#evaluation)
+  - [Fine-tuning via Reinforcement Learning ](#fine-tuning-via-reinforcement-learning-)
+  - [Output folders and files](#output-folders-and-files)
+  - [How to read the plots](#how-to-read-the-plots)
+  - [Tips](#tips)
+  - [Environment tips: PyTorch vision ops and C++ ABI ](#environment-tips-pytorch-vision-ops-and-c-abi-)
+  - [Retrosynthesis with AiZynthFinder (UNDER DEVELOPMENT)](#retrosynthesis-with-aizynthfinder-under-development)
 - [Authors](#authors)
 - [License](#license)
 - [Copyright](#copyright)
@@ -52,7 +60,8 @@ Next, download the two files: data.zip and evaluation.zip from [here](https://ze
 
 Your code should now be ready to use!
 
-# Using the code <a name="Using_the_code"></a>
+## Using the code <a name="Using_the_code"></a>
+
 ### Workflow runner
 
 We provide a convenience workflow script at `code/scripts/main_workflow.sh` that orchestrates the end-to-end process (training → evaluation → sampling → FCD computation → constrained generation → analysis → RL fine-tuning).
@@ -66,7 +75,7 @@ Run the workflow from anywhere (the script determines the repo root automaticall
 bash code/scripts/main_workflow.sh
 ```
 
-## Sampling from a pre-trained model <a name="Sample"></a>
+### Sampling from a pre-trained model <a name="Sample"></a>
 
 In this repository, we provide you with 22 pre-trained models you can use for sampling (stored in [evaluation/](evaluation/)).
 These models were trained on a set of 271,913 bioactive molecules from ChEMBL22 (K<sub>d/I</sub>/IC<sub>50</sub>/EC<sub>50</sub> <1μM), for 10 epochs.
@@ -97,7 +106,8 @@ Parameters:
 - For the provided pre-trained models, only *fold=[1]* and *epoch=[9]* are provided.
 - The list of available models and their description are provided in [evaluation/model_names.md](evaluation/model_names.md)
 
-## Training a New Model
+### Training a New Model
+
 Alternatively, if you want to pre-train a model on your own data, you will need to execute three steps: (i) data processing (ii) training and (iii) evaluation.
 Please be aware that you will need the access to a GPU to pre-train your own model as this is a computationally intensive step.
 
@@ -185,7 +195,7 @@ Note:
 - the losses plot can be found, in that case, in '{experiment_name}/statistic/all_statistic.png'
 - the novel, valid and unique SMILES plot can be found, in that case, in '../evaluation/{experiment_name}/molecules/novel_valid_unique_molecules.png'
 
-## Fine-tuning via Reinforcement Learning <a name="Finetuning"></a>
+### Fine-tuning via Reinforcement Learning <a name="Finetuning"></a>
 
 This repo now includes a simple, model-agnostic REINFORCE-based RL fine-tuner to optimize molecular properties directly from the pre-trained generators. The entry point is `model/main_fine_tuner.py`.
 
@@ -259,8 +269,7 @@ Notes:
 - Reward weights: `(1,0)` pushes QED only; `(1,1)` balances QED up and SAS down.
 - If you modify tokenization or start tokens, ensure `helper.clean_molecule` matches your model type.
 
-
-## Environment tips: PyTorch vision ops and C++ ABI <a name="EnvTips"></a>
+### Environment tips: PyTorch vision ops and C++ ABI <a name="EnvTips"></a>
 
 If you run into errors like “operator torchvision::nms does not exist” or “version `CXXABI_1.3.15` not found” when using AiZynthFinder, SciPy, or other compiled extensions, use the following checklist.
 
@@ -286,7 +295,7 @@ Notes:
 - torch 2.5.1 pairs with torchvision 0.20.x. If you upgrade torch, also upgrade torchvision to the matching series.
 - If you prefer conda-only installation, install torch/torchvision from the pytorch channel with a matching CUDA runtime, or use CPU-only builds consistently.
 
-## Retrosynthesis with AiZynthFinder (UNDER DEVELOPMENT)
+### Retrosynthesis with AiZynthFinder (UNDER DEVELOPMENT)
 
 We include a helper in `model/retrosynthesis_aizynth.py` that evaluates retrosynthetic solvability per episode for generated molecules. THIS PART IS CURRENTLY UNDER DEVELOPMENT.
 
